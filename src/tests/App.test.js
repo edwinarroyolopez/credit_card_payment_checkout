@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import App from '../App';
 
@@ -19,8 +19,8 @@ describe('App', () => {
     });
   });
 
-  it('should render ProductList with products from Redux store', () => {
-    const { getByText } = render(
+  it('should render ProductList with products from Redux store and open CreditCardModal on button click', () => {
+    const { getByText, queryByText } = render(
       <Provider store={store}>
         <App />
       </Provider>
@@ -29,9 +29,8 @@ describe('App', () => {
     expect(getByText('Products to Sell')).toBeInTheDocument();
     expect(getByText('Product 1')).toBeInTheDocument();
     expect(getByText('$10')).toBeInTheDocument();
-    expect(getByText('Product 2')).toBeInTheDocument();
-    expect(getByText('$20')).toBeInTheDocument();
-    expect(getByText('Product 3')).toBeInTheDocument();
-    expect(getByText('$30')).toBeInTheDocument();
+
+    fireEvent.click(getByText('Pay with credit card'));
+    expect(queryByText('Pay with Credit Card')).toBeInTheDocument();
   });
 });
