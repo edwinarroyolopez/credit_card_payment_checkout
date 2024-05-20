@@ -2,11 +2,11 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { render } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
-import App from '../App';
+import ProductList from '../components/ProductList';
 
 const mockStore = configureStore([]);
 
-describe('App', () => {
+describe('ProductList', () => {
   let store;
 
   beforeEach(() => {
@@ -19,10 +19,10 @@ describe('App', () => {
     });
   });
 
-  it('should render ProductList with products from Redux store', () => {
+  it('should render with given state from Redux store', () => {
     const { getByText } = render(
       <Provider store={store}>
-        <App />
+        <ProductList />
       </Provider>
     );
 
