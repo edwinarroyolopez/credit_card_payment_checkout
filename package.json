@@ -5,8 +5,9 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^15.0.6",
+    "@testing-library/react": "^15.0.7",
     "@testing-library/user-event": "^13.5.0",
+    "axios-mock-adapter": "^1.22.0",
     "bootstrap": "^5.3.3",
     "card-validator": "^9.1.0",
     "react": "^18.3.1",
@@ -14,7 +15,9 @@
     "react-dom": "^18.3.1",
     "react-redux": "^9.1.2",
     "react-scripts": "5.0.1",
+    "react-toastify": "^10.0.5",
     "redux": "^5.0.1",
+    "redux-thunk": "^3.1.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -22,6 +25,7 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "test": "jest",
+    "test:single": "jest",
     "test:coverage": "jest --coverage"
   },
   "jest": {
