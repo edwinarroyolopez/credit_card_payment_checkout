@@ -83,26 +83,72 @@ It correctly bundles React in production mode and optimizes the build for the be
 # exmple cards 
 [cards generator](https://dnschecker.org/credit-card-generator.php) 
 
-VISA
-4400 3768 5870 8
-CVV/CVV2 812 Good thru 6/2023
 
-master card
-5430 8821 9852 6980
-CVV/CVV2 743 Good thru 1/2023
-Alexis Johnson
+# Blacklist Cards
+
+    master card
+    5430 8821 9852 6980
+    CVV/CVV2 743 Good thru 1/2023
+    Alexis Johnson
+
+    Mastercard  
+    5462 8800 0029 2065
+    CVV/CVV2 304 Good thru 10/2021
+    Mia Lewis
+
+    Mastercard  
+    5462 8800 0062 5348
+    CVV/CVV2 759 Good thru 2/2021
+    Samantha Johnson
 
 
+# Whitelist Cards
+1. Master card
+    Mastercard 
+    5536 7795 5617 8094
+    CVV/CVV2 620 
+    Good thru 7/2022
+    Michael Thomas
 
-Mastercard Validate 
-5462 8800 0029 2065
-CVV/CVV2 304 Good thru 10/2021
-Mia Lewis
 
-Mastercard Validate 
-5462 8800 0062 5348
-CVV/CVV2 759 Good thru 2/2021
-Samantha Johnson
+    Mastercard 
+    5536 7703 3146 4412
+    CVV/CVV2 880 
+    Good thru 6/2022
+    James Lee
+
+    Mastercard 
+    5536 7702 3071 5948
+    CVV/CVV2 179 
+    Good thru 8/2023
+    Brianna Hernandez
+
+    Mastercard 
+    5536 7700 0059 4663
+    CVV/CVV2 590 
+    Good thru 4/2025
+    Alexis Allen
+
+2. Visa card
+    Visa 
+    4641 1493 4983 0069
+    CVV/CVV2 276 
+    Good thru 11/2025
+    Anna Robinson
+
+    Visa 
+    4081 4225 1740 6005
+    CVV/CVV2 955 
+    Good thru 10/2025
+    Gabriel Thompson
+
+    Visa 
+    4641 1409 9580 8533
+    CVV/CVV2 475 
+    Good thru 5/2025
+    Elizabeth Gonzalez
+
+
 
 1. You must create a UI to show the product from your store (with information and value), that will be bought by
 the customer.

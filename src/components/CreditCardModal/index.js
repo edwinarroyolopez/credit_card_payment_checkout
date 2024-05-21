@@ -55,8 +55,8 @@ const CreditCardModal = ({ show, handleClose }) => {
 
   const handlePaymentSuccess = async () => {
     try {
-      await dispatch(makePayment({ cardNumber, expiryDate, cvv }));
-      console.log('Payment successs');
+      const response = await dispatch(makePayment({ cardNumber, expiryDate, cvv }));
+      console.log({ response });
       setShowPaymentSummary(false);
 
       // clear the payment data
@@ -100,7 +100,7 @@ const CreditCardModal = ({ show, handleClose }) => {
             onPaymentAccept={handlePaymentAccept}
           />
         </Modal.Body>
-         
+
       </Modal>
       <BackdropComponent
         show={showPaymentSummary}
@@ -109,12 +109,12 @@ const CreditCardModal = ({ show, handleClose }) => {
         onHide={() => setShowPaymentSummary(false)}
         onPay={handlePaymentSuccess}
       />
-         <ToastComponent
-            show={showToast}
-            toggleShow={toggleShowToast}
-            message={messageToast}
-            title={titleToast}
-          />
+      <ToastComponent
+        show={showToast}
+        toggleShow={toggleShowToast}
+        message={messageToast}
+        title={titleToast}
+      />
     </>
   );
 };

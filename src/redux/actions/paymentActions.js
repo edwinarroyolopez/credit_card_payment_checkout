@@ -1,13 +1,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
+const blackListCards = [
+  { id: 1, brand: 'mastercard', cardNumber: '5462 8800 0029 2065', cvv: '304', expirateDate: '10/2021' },
+  { id: 2, brand: 'mastercard', cardNumber: '5462 8800 0062 5348', cvv: '759', expirateDate: '2/2021' },
+  { id: 3, brand: 'mastercard', cardNumber: '5430 8821 9852 6980', cvv: '743', expirateDate: '1/2023' }
+];
+
 const mockApiCall = (paymentData) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (paymentData.cardNumber === '4111111111111111') {
-        resolve({ success: true });
-      } else {
-        reject({ success: false, message: 'Invalid card number' });
+
+      if(blackListCards.find(card => card.cardNumber === paymentData.cardNumber)){
+        reject({ success: false, message: 'Rejected transaction' });
+      }else{
+        resolve({ success: true, message: 'Correct transaction' });
       }
     }, 1000);
   });
@@ -16,7 +23,7 @@ const mockApiCall = (paymentData) => {
 export const makePayment = createAsyncThunk(
   'payment/makePayment',
   async (paymentData, { rejectWithValue }) => {
-    console.log({ paymentData, message: '-- making payment--'})
+    console.log({ paymentData, message: '-- making payment--' })
     try {
       const response = await mockApiCall(paymentData);
       return response;

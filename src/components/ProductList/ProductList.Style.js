@@ -44,10 +44,12 @@ export const ProductTitle = styled.span`
 `;
 
 export const ProductInfo = styled.div`
+  border-bottom: solid 1px #555;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  padding-bottom: 10px;
 
   span {
     color: #9d9d9d;
