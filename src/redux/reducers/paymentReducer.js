@@ -10,9 +10,9 @@ const mockApiCall = (paymentData) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (blackListCards.find(card => card.cardNumber === paymentData.cardNumber)) {
-        reject({ success: false, message: 'Rejected transaction' });
+        reject({ success: false });
       } else {
-        resolve({ success: true, message: 'Correct transaction' });
+        resolve({ success: true });
       }
     }, 1000);
   });
@@ -21,7 +21,6 @@ const mockApiCall = (paymentData) => {
 export const makePayment = createAsyncThunk(
   'payment/makePayment',
   async (paymentData, { rejectWithValue }) => {
-    console.log({ paymentData, message: '-- making payment--' })
     try {
       const response = await mockApiCall(paymentData);
       return response;
@@ -31,16 +30,25 @@ export const makePayment = createAsyncThunk(
   }
 );
 
+const initialState = {
+  loading: false,
+  success: false,
+  error: null,
+  status: ''
+};
+
 const paymentSlice = createSlice({
   name: 'payment',
-  initialState: {
-    loading: false,
-    success: false,
-    error: null,
-    status: ''
-  },
+  initialState,
   reducers: {
-    // No necesitamos estos reducers para esta implementación específica
+    resetPaymentState(state) {
+      {
+        state.loading = false;
+        state.success = false;
+        state.error = null;
+        state.status = '';
+      };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -64,4 +72,5 @@ const paymentSlice = createSlice({
   },
 });
 
+export const { resetPaymentState } = paymentSlice.actions;
 export default paymentSlice.reducer;

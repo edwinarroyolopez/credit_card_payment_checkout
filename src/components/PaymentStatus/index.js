@@ -1,11 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+
 import { PaymentStatusWrapper, Message, RetryButton } from './PaymentStatus.Style';
 
-const PaymentStatus = ({ handleRetry }) => {
-  const paymentStatus = useSelector(state => state.payment.status);
-  const paymentError = useSelector(state => state.payment.status);
-
+const PaymentStatus = ({ handleRetry, paymentStatus }) => {
   return (
     <PaymentStatusWrapper>
       <h2>{paymentStatus === 'succeeded' ? 'Payment Successful' : 'Payment Failed'}</h2>

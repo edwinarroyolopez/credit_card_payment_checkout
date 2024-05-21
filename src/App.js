@@ -1,35 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import './App.css';
+
+import useLocalStorage from './hooks/useLocalStorage';
+import { resetPaymentState } from './redux/reducers/paymentReducer';
+
 import ProductList from './components/ProductList';
 import CreditCardModal from './components/CreditCardModal';
 import PaymentStatus from './components/PaymentStatus';
 
 function App() {
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [paymentData, setPaymentData] = useLocalStorage('paymentData', '');
 
-  const paymentStatus = useSelector(state => state.payment.status);
+  let paymentStatus = useSelector(state => state.payment.status);
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
   const handleRetry = () => {
+    console.log('handleRetry')
+    dispatch(resetPaymentState());
     setShowModal(false);
-    window.location.reload(); // Optionally reset the page or reset the state as needed
+    setPaymentData('')
   };
 
   useEffect(() => {
     if (paymentStatus === 'succeeded' || paymentStatus === 'failed') {
+      setPaymentData(paymentStatus)
       setShowModal(false);
     }
   }, [paymentStatus]);
 
-
+  paymentStatus = paymentStatus !=='' ? paymentStatus : paymentData
   if (paymentStatus === 'succeeded' || paymentStatus === 'failed') {
-    return <PaymentStatus handleRetry={handleRetry} />;
+    return <PaymentStatus handleRetry={handleRetry} paymentStatus={paymentStatus} />;
   }
-
 
   return (
     <div className="App">
