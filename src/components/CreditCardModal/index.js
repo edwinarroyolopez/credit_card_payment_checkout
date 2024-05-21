@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import valid from 'card-validator';
 import { Modal } from 'react-bootstrap';
 
@@ -10,12 +10,20 @@ import BackdropComponent from '../BackdropComponent';
 
 const CreditCardModal = ({ show, handleClose }) => {
   const dispatch = useDispatch();
+  const products = useSelector(state => state.products);
+
   const [cardNumber, setCardNumber] = useLocalStorage('cardNumber', '');
   const [expiryDate, setExpiryDate] = useLocalStorage('expiryDate', '');
   const [cvv, setCvv] = useLocalStorage('cvv', '');
   const [cardType, setCardType] = useLocalStorage('cardType', '');
 
   const [showPaymentSummary, setShowPaymentSummary] = useState(false);
+
+
+  const totalAmount = products.reduce((total, product) => total + product.price * product.quantity, 0);
+  const totalItems = products.reduce((total, product) => total + product.quantity, 0);
+
+  console.log({ totalItems })
 
   const handlePaymentAccept = () => {
 
@@ -84,7 +92,8 @@ const CreditCardModal = ({ show, handleClose }) => {
       </Modal>
       <BackdropComponent
         show={showPaymentSummary}
-        totalAmount={100} // Puedes reemplazar esto con la cantidad total real
+        totalAmount={totalAmount}
+        totalItems={totalItems}
         onHide={() => setShowPaymentSummary(false)}
         onPay={handlePaymentSuccess}
       />

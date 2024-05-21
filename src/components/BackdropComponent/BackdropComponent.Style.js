@@ -1,0 +1,64 @@
+import styled from 'styled-components';
+
+export const BackdropWrapper = styled.div`
+  body .overwrite{
+    background-color: #FFF !important;
+    opacity: 1 !important;
+  }
+`;
+
+export const ItemsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
+`;
+
+export const ProductWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+export const ProductImage = styled.img`
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 15px;
+`;
+
+export const ProductTitle = styled.span`
+    font-size: 0.5em;
+    margin: 2px 0;
+`;
+
+export const ProductInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    color: #9d9d9d;
+    font-size: 0.5em;
+    margin: 2px 0;
+  }
+`;
+
+export const ProductDetail = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  
+  span {
+    font-size: 0.5em;
+    margin: 2px 0;
+  }
+`;

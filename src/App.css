@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+.overwrite-backdrop{
+  background-color: #FFF !important;
+  opacity: 1 !important;
+}
