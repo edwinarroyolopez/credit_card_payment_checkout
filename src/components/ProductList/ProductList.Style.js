@@ -1,4 +1,3 @@
-// src/components/ProductList.Style.js
 import styled from 'styled-components';
 
 export const OrderInfo = styled.div`
@@ -31,9 +30,6 @@ export const ProductWrapper = styled.div`
   }
 `;
 
-
-
-
 export const ProductImage = styled.img`
   width: 60px;
   height: 60px;
@@ -43,7 +39,6 @@ export const ProductImage = styled.img`
 
 export const ProductTitle = styled.span`
     font-size: 0.5em;
-    
     margin: 2px 0;
 `;
 
@@ -51,6 +46,7 @@ export const ProductInfo = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
 
   span {
     color: #9d9d9d;
@@ -59,12 +55,12 @@ export const ProductInfo = styled.div`
   }
 `;
 
-
 export const ProductDetail = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
+  align-items: flex-start;
+  
   span {
     font-size: 0.5em;
     margin: 2px 0;
