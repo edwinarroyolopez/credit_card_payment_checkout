@@ -5,6 +5,7 @@ export const OrderInfo = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 25px;
+  font-size: calc(10px + 2.5vmin);
 
   @media (min-width: 768px) and (max-width: 990px) {
     padding-right: 15px;

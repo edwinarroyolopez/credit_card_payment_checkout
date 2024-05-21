@@ -26,8 +26,8 @@ const ProductList = () => {
               <ProductImage src={product.image} alt={product.name} />
               <ProductDetail>
                 <span>items: <b>{product.quantity}</b></span>
-                <span>unit price: ${product.price}</span>
-                <span>price: ${product.price * product.quantity}</span>
+                <span>unit price: <b>${product.price}</b></span>
+                <span>price: <b>${product.price * product.quantity}</b></span>
               </ProductDetail>
             </ProductInfo>
           </ProductWrapper>
