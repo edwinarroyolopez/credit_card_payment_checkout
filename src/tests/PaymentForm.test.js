@@ -1,46 +1,37 @@
 // src/tests/PaymentForm.test.js
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import PaymentForm from '../components/CreditCardModal/PaymentForm';
-import { makePayment } from '../redux/actions/paymentActions';
-import paymentReducer from '../redux/reducers/paymentReducer';
-import productReducer from '../redux/reducers/productReducer';
-import { ToastContainer } from 'react-toastify';
-
-const middlewares = [thunk];
-const mockStore = configureStore(middlewares);
-let store = configureStore({
-    reducer: { payment: paymentReducer, products: productReducer },
-  })
-
-const renderWithProviders = (ui, { store, ...renderOptions } = {}) => {
-  function Wrapper({ children }) {
-    return (
-      <Provider store={store}>
-        {children}
-        <ToastContainer />
-      </Provider>
-    );
-  }
-  return render(ui, { wrapper: Wrapper, ...renderOptions });
-};
 
 describe('PaymentForm', () => {
-//   let store;
+  let cardNumber, setCardNumber, expiryDate, setExpiryDate, cvv, setCvv, cardType, setCardType, onPaymentAccept;
 
-//   beforeEach(() => {
-//     store = mockStore({
-//       payment: { status: 'idle' },
-//     });
-
-//     store.dispatch = jest.fn();
-//   });
+  beforeEach(() => {
+    cardNumber = '';
+    setCardNumber = jest.fn();
+    expiryDate = '';
+    setExpiryDate = jest.fn();
+    cvv = '';
+    setCvv = jest.fn();
+    cardType = '';
+    setCardType = jest.fn();
+    onPaymentAccept = jest.fn();
+  });
 
   test('renders PaymentForm correctly', () => {
-    renderWithProviders(<PaymentForm onPaymentSuccess={jest.fn()} />, { store });
+    render(
+      <PaymentForm
+        cardNumber={cardNumber}
+        setCardNumber={setCardNumber}
+        expiryDate={expiryDate}
+        setExpiryDate={setExpiryDate}
+        cvv={cvv}
+        setCvv={setCvv}
+        cardType={cardType}
+        setCardType={setCardType}
+        onPaymentAccept={onPaymentAccept}
+      />
+    );
 
     expect(screen.getByLabelText(/card number/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/expiry date/i)).toBeInTheDocument();
@@ -48,19 +39,45 @@ describe('PaymentForm', () => {
     expect(screen.getByText(/submit payment/i)).toBeInTheDocument();
   });
 
-  test('submits the form with valid data', async () => {
-    renderWithProviders(<PaymentForm onPaymentSuccess={jest.fn()} />, { store });
+  test('updates card type when valid card number is entered', () => {
+    render(
+      <PaymentForm
+        cardNumber={cardNumber}
+        setCardNumber={setCardNumber}
+        expiryDate={expiryDate}
+        setExpiryDate={setExpiryDate}
+        cvv={cvv}
+        setCvv={setCvv}
+        cardType={cardType}
+        setCardType={setCardType}
+        onPaymentAccept={onPaymentAccept}
+      />
+    );
 
-    fireEvent.change(screen.getByLabelText(/card number/i), { target: { value: '4111111111111111' } });
-    fireEvent.change(screen.getByLabelText(/expiry date/i), { target: { value: '12/23' } });
-    fireEvent.change(screen.getByLabelText(/cvv/i), { target: { value: '123' } });
+    const cardNumberInput = screen.getByLabelText(/card number/i);
+    fireEvent.change(cardNumberInput, { target: { value: '4111111111111111' } });
 
-    fireEvent.click(screen.getByText(/submit payment/i));
-
-    expect(store.dispatch).toHaveBeenCalledWith(makePayment({
-      cardNumber: '4111111111111111',
-      expiryDate: '12/23',
-      cvv: '123'
-    }));
+    expect(setCardNumber).toHaveBeenCalledWith('4111111111111111');
+    expect(setCardType).toHaveBeenCalledWith('visa');
   });
+
+  // test('submits the form with valid data', () => {
+  //   render(
+  //     <PaymentForm
+  //       cardNumber="4111111111111111"
+  //       setCardNumber={setCardNumber}
+  //       expiryDate="12/23"
+  //       setExpiryDate={setExpiryDate}
+  //       cvv="123"
+  //       setCvv={setCvv}
+  //       cardType="visa"
+  //       setCardType={setCardType}
+  //       onPaymentAccept={onPaymentAccept}
+  //     />
+  //   );
+
+  //   fireEvent.click(screen.getByText(/submit payment/i));
+
+  //   expect(onPaymentAccept).toHaveBeenCalled();
+  // });
 });

@@ -8,7 +8,6 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 import PaymentForm from './PaymentForm';
 import BackdropComponent from '../BackdropComponent';
 
-
 const CreditCardModal = ({ show, handleClose }) => {
   const dispatch = useDispatch();
   const [cardNumber, setCardNumber] = useLocalStorage('cardNumber', '');
@@ -33,11 +32,9 @@ const CreditCardModal = ({ show, handleClose }) => {
       console.error('Please enter valid credit card information.');
     }
 
-
   };
 
   const handlePaymentSuccess = async () => {
-    
     try {
       await dispatch(makePayment({ cardNumber, expiryDate, cvv }));
       console.log('Payment successs');
@@ -54,7 +51,6 @@ const CreditCardModal = ({ show, handleClose }) => {
     } catch (error) {
       console.error('Payment failed. Please try again.', error);
     }
-
   };
 
   useEffect(() => {

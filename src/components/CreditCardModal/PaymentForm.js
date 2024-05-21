@@ -33,7 +33,6 @@ const PaymentForm = ({
     e.preventDefault();
     onPaymentAccept()
   };
-
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formCardNumber">
@@ -61,7 +60,6 @@ const PaymentForm = ({
           )}
         </div>
       </Form.Group>
-
       <Form.Group controlId="formExpiryDate">
         <Form.Label>Expiry Date</Form.Label>
         <Form.Control
@@ -72,7 +70,6 @@ const PaymentForm = ({
           required
         />
       </Form.Group>
-
       <Form.Group controlId="formCvv">
         <Form.Label>CVV</Form.Label>
         <Form.Control
@@ -83,7 +80,6 @@ const PaymentForm = ({
           required
         />
       </Form.Group>
-
       <Button variant="primary" type="submit">
         Submit Payment
       </Button>
