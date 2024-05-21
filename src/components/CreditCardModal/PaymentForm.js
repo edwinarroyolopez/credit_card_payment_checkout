@@ -80,6 +80,7 @@ const PaymentForm = ({
           required
         />
       </Form.Group>
+      <br />
       <Button variant="primary" type="submit">
         Submit Payment
       </Button>

@@ -1,33 +1,34 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-import { BackdropWrapper } from './BackdropComponent.Style'
+import { PaymentSummary } from './BackdropComponent.Style'
 
 const BackdropComponent = ({ show, totalItems, totalAmount, onHide, onPay }) => (
-  <BackdropWrapper>
-    <Modal
-      show={show}
-      onHide={onHide}
-      backdrop="static"
-      className='overwrite-backdrop'
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title>Payment Summary</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div className="payment-summary">
-          <h2>Summary Payment</h2>
-          <p>Total Items: {totalItems}</p>
-          <hr />
-          <p>Total Amount: ${totalAmount}</p>
-          <Button onClick={onPay} variant="primary">
-            Pay Now
-          </Button>
-        </div>
-      </Modal.Body>
-    </Modal>
-  </BackdropWrapper>
+  <Modal
+    show={show}
+    onHide={onHide}
+    backdrop="static"
+    className='overwrite-backdrop'
+    centered
+  >
+    <Modal.Header closeButton>
+      <Modal.Title>Payment Summary</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <PaymentSummary>
+        <p>This is the payment summary for your purchase.</p>
+        <hr />
+        <p>Total Items: <b>{totalItems}</b></p>
+        <hr />
+        <p>Total Amount: <b>${totalAmount}</b></p>
+      </PaymentSummary>
+    </Modal.Body>
+    <Modal.Footer>
+      <Button onClick={onPay} variant="outline-primary">
+        Pay Now
+      </Button>
+    </Modal.Footer>
+  </Modal>
 );
 
 export default BackdropComponent;
