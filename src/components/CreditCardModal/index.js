@@ -6,6 +6,8 @@ import { Modal } from 'react-bootstrap';
 import { makePayment } from '../../redux/actions/paymentActions';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import PaymentForm from './PaymentForm';
+
+import ToastComponent from '../ToastComponent';
 import BackdropComponent from '../BackdropComponent';
 
 const CreditCardModal = ({ show, handleClose }) => {
@@ -19,11 +21,12 @@ const CreditCardModal = ({ show, handleClose }) => {
 
   const [showPaymentSummary, setShowPaymentSummary] = useState(false);
 
+  const [showToast, setShowToast] = useState(false);
+  const [messageToast, setMessageToast] = useState('');
+  const [titleToast, setTitleToast] = useState('');
 
   const totalAmount = products.reduce((total, product) => total + product.price * product.quantity, 0);
   const totalItems = products.reduce((total, product) => total + product.quantity, 0);
-
-  console.log({ totalItems })
 
   const handlePaymentAccept = () => {
 
@@ -37,10 +40,18 @@ const CreditCardModal = ({ show, handleClose }) => {
       setShowPaymentSummary(true);
       handleClose();
     } else {
+      setShowToast(true)
+      setTitleToast('Invalid card infomation')
+      setMessageToast('Please enter valid credit card information.')
+      setTimeout(() => setShowToast(false), 3000)
       console.error('Please enter valid credit card information.');
     }
 
   };
+
+  const toggleShowToast = () => {
+    setShowToast(!showToast)
+  }
 
   const handlePaymentSuccess = async () => {
     try {
@@ -89,6 +100,7 @@ const CreditCardModal = ({ show, handleClose }) => {
             onPaymentAccept={handlePaymentAccept}
           />
         </Modal.Body>
+         
       </Modal>
       <BackdropComponent
         show={showPaymentSummary}
@@ -97,6 +109,12 @@ const CreditCardModal = ({ show, handleClose }) => {
         onHide={() => setShowPaymentSummary(false)}
         onPay={handlePaymentSuccess}
       />
+         <ToastComponent
+            show={showToast}
+            toggleShow={toggleShowToast}
+            message={messageToast}
+            title={titleToast}
+          />
     </>
   );
 };
