@@ -1,6 +1,17 @@
 // src/components/ProductList.Style.js
 import styled from 'styled-components';
 
+export const OrderInfo = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 25px;
+
+  @media (min-width: 768px) and (max-width: 990px) {
+    padding-right: 15px;
+  }
+`;
+
 export const ItemsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -20,16 +31,6 @@ export const ProductWrapper = styled.div`
   }
 `;
 
-export const OrderInfo = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 15px;
-
-  @media (min-width: 768px) and (max-width: 990px) {
-    padding-right: 15px;
-  }
-`;
 
 
 
@@ -41,7 +42,7 @@ export const ProductImage = styled.img`
 `;
 
 export const ProductTitle = styled.span`
-    font-size: 0.7em;
+    font-size: 0.5em;
     
     margin: 2px 0;
 `;
@@ -52,6 +53,7 @@ export const ProductInfo = styled.div`
   justify-content: center;
 
   span {
+    color: #9d9d9d;
     font-size: 0.5em;
     margin: 2px 0;
   }
