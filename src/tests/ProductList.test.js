@@ -26,7 +26,7 @@ describe('ProductList', () => {
       </Provider>
     );
 
-    expect(getByText('Products to Sell')).toBeInTheDocument();
+    expect(getByText('Products in the cart')).toBeInTheDocument();
     expect(getByText('Product 1')).toBeInTheDocument();
     expect(getByText('$10')).toBeInTheDocument();
     expect(getByText('Product 2')).toBeInTheDocument();

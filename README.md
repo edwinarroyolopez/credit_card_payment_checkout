@@ -115,6 +115,14 @@ is a plus. (Remember, credit card data must be fake but must follows the structu
 6. Finally show the result of the transaction made.
 
 
+1. Debes crear una UI para mostrar el producto de tu tienda (con información y valor), que será comprado por el cliente.
+2. Mostrar al cliente el botón de tipo de pago “Pagar con tarjeta de crédito”. Que abre un Modal solicitando Tarjeta de Crédito información.
+3. El Cliente insertará los datos de la Tarjeta de Crédito y deberá ser validada. Logotipos de detección de tarjetas de números MasterCard y VISA
+es una ventaja. (Recuerde, los datos de la tarjeta de crédito deben ser falsos pero deben seguir la estructura de las tarjetas de crédito)
+4. A continuación, muestre el pago resumido con el botón de pago en un componente de fondo2.
+5. Luego simule la llamada a la API de backend con rutas felices e infelices para el pago (con respecto a si los datos de pago son
+completo, en caso de no estar satisfecho mostrar un error de brindis)
+6. Finalmente mostrar el resultado de la transacción realizada.
 
 
 npm run test:single src/tests/PaymentForm.test.js
