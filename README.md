@@ -88,17 +88,20 @@ It correctly bundles React in production mode and optimizes the build for the be
 
     master card
     5430 8821 9852 6980
-    CVV/CVV2 743 Good thru 1/2023
+    CVV/CVV2 743 
+    Good thru 1/2023
     Alexis Johnson
 
     Mastercard  
     5462 8800 0029 2065
-    CVV/CVV2 304 Good thru 10/2021
+    CVV/CVV2 304 
+    Good thru 10/2021
     Mia Lewis
 
     Mastercard  
     5462 8800 0062 5348
-    CVV/CVV2 759 Good thru 2/2021
+    CVV/CVV2 759 
+    Good thru 2/2021
     Samantha Johnson
 
 

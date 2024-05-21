@@ -4,9 +4,9 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import CreditCardModal from '../components/CreditCardModal';
-import { makePayment } from '../redux/actions/paymentActions';
+// import { makePayment } from '../redux/actions/paymentActions';
 
-jest.mock('../redux/actions/paymentActions');
+// jest.mock('../redux/actions/paymentActions');
 
 const mockStore = configureStore([]);
 const initialState = {

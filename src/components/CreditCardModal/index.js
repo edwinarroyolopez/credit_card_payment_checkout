@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import valid from 'card-validator';
 import { Modal } from 'react-bootstrap';
 
-import { makePayment } from '../../redux/actions/paymentActions';
+import { makePayment } from '../../redux/reducers/paymentReducer';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import PaymentForm from './PaymentForm';
 
