@@ -37,13 +37,6 @@ export const ProductWrapper = styled.div`
   }
 `;
 
-export const ProductImageWrapper = styled.div`
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  margin-right: 15px;
-`;
-
 export const ProductTitle = styled.span`
     font-size: 1.2em;
     margin: 2px 0;

@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import LazyLoad from 'react-lazyload';
-
+import ProductImageLazy from '../ProductImageLazy'
 import {
   ItemsWrapper,
   ProductWrapper,
   OrderInfo,
   Title,
   ProductTitle,
-  ProductImageWrapper,
   ProductInfo,
   ProductDetail
 } from './ProductList.Style';
@@ -40,20 +39,20 @@ const ProductList = () => {
   );
 };
 
-const ProductImageLazy = ({ src, alt }) => {
-  const [loaded, setLoaded] = useState(false);
+// const ProductImageLazy = ({ src, alt }) => {
+//   const [loaded, setLoaded] = useState(false);
 
-  return (
-   <ProductImageWrapper>
-      {!loaded && <div className="image-placeholder" style={{ background: '#f0f0f0', width: '100%', height: '100%' }} />}
-      <img
-        src={src}
-        alt={alt}
-        onLoad={() => setLoaded(true)}
-        style={{ display: loaded ? 'block' : 'none', width: '60px', height: '60px' }}
-      />
-   </ProductImageWrapper>
-  );
-};
+//   return (
+//    <ProductImageWrapper>
+//       {!loaded && <div className="image-placeholder" style={{ background: '#f0f0f0', width: '100%', height: '100%' }} />}
+//       <img
+//         src={src}
+//         alt={alt}
+//         onLoad={() => setLoaded(true)}
+//         style={{ display: loaded ? 'block' : 'none', width: '60px', height: '60px' }}
+//       />
+//    </ProductImageWrapper>
+//   );
+// };
 
 export default ProductList;
