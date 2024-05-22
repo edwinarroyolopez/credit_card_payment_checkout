@@ -2,7 +2,6 @@
 import { useState } from 'react';
 
 function useLocalStorage(key, initialValue) {
-  // Obtener el valor inicial de localStorage o usar el valor inicial proporcionado
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const item = localStorage.getItem(key);
@@ -13,7 +12,6 @@ function useLocalStorage(key, initialValue) {
     }
   });
 
-  // Guardar el valor en localStorage
   const setValue = (value) => {
     try {
       const valueToStore = value instanceof Function ? value(storedValue) : value;

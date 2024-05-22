@@ -10,7 +10,6 @@ describe('ProductImageLazy', () => {
   test('renders the placeholder before the image is loaded', () => {
     render(<ProductImageLazy src={src} alt={alt} />);
 
-    // Verify the placeholder is present initially
     expect(screen.getByTestId('image-placeholder')).toBeInTheDocument();
     expect(screen.queryByAltText(alt)).not.toBeVisible();
   });

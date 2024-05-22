@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { render, fireEvent } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import App from '../App';
-import { resetPaymentState } from '../redux/reducers/paymentReducer';
 
 const mockStore = configureStore([]);
 

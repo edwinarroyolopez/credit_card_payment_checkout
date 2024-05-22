@@ -60,24 +60,4 @@ describe('PaymentForm', () => {
     expect(setCardNumber).toHaveBeenCalledWith('4111111111111111');
     expect(setCardType).toHaveBeenCalledWith('visa');
   });
-
-  // test('submits the form with valid data', () => {
-  //   render(
-  //     <PaymentForm
-  //       cardNumber="4111111111111111"
-  //       setCardNumber={setCardNumber}
-  //       expiryDate="12/23"
-  //       setExpiryDate={setExpiryDate}
-  //       cvv="123"
-  //       setCvv={setCvv}
-  //       cardType="visa"
-  //       setCardType={setCardType}
-  //       onPaymentAccept={onPaymentAccept}
-  //     />
-  //   );
-
-  //   fireEvent.click(screen.getByText(/submit payment/i));
-
-  //   expect(onPaymentAccept).toHaveBeenCalled();
-  // });
 });

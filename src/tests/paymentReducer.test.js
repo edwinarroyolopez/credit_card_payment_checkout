@@ -52,33 +52,6 @@ describe('paymentReducer', () => {
     });
   });
 
-//   it('should handle makePayment pending state', async () => {
-//     store.dispatch(makePayment({ cardNumber: '1234 5678 9012 3456' }));
-//     const actions = store.getActions();
-//     expect(actions[0].type).toBe(makePayment.pending.type);
-//     expect(actions[0].meta.arg).toEqual({ cardNumber: '1234 5678 9012 3456' });
-//   });
-
-//   it('should handle makePayment fulfilled state', async () => {
-//     mockApiCall.mockResolvedValueOnce({ success: true });
-
-//     await store.dispatch(makePayment({ cardNumber: '1234 5678 9012 3456' }));
-//     const actions = store.getActions();
-
-//     expect(actions[1].type).toBe(makePayment.fulfilled.type);
-//     expect(actions[1].payload).toEqual({ success: true });
-//   });
-
-  // it('should handle makePayment rejected state',  () => {
-  //   mockApiCall.mockRejectedValueOnce({ success: false });
-
-  //    store.dispatch(makePayment({ cardNumber: '5462 8800 0029 2065' }));
-  //   const actions = store.getActions();
-
-  //   expect(actions[1].type).toBe(makePayment.rejected.type);
-  //   expect(actions[1].payload).toEqual({ success: false });
-  // });
-
   it('should handle resetPaymentState action', () => {
     store.dispatch(resetPaymentState());
     const actions = store.getActions();

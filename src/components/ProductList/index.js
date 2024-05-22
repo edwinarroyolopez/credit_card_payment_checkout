@@ -39,20 +39,4 @@ const ProductList = () => {
   );
 };
 
-// const ProductImageLazy = ({ src, alt }) => {
-//   const [loaded, setLoaded] = useState(false);
-
-//   return (
-//    <ProductImageWrapper>
-//       {!loaded && <div className="image-placeholder" style={{ background: '#f0f0f0', width: '100%', height: '100%' }} />}
-//       <img
-//         src={src}
-//         alt={alt}
-//         onLoad={() => setLoaded(true)}
-//         style={{ display: loaded ? 'block' : 'none', width: '60px', height: '60px' }}
-//       />
-//    </ProductImageWrapper>
-//   );
-// };
-
 export default ProductList;

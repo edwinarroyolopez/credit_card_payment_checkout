@@ -55,8 +55,6 @@ describe('CreditCardModal', () => {
 
     fireEvent.click(screen.getByText('Submit Payment'));
 
-    // await waitFor(() => expect(screen.getByText('Invalid card infomation')).toBeInTheDocument());
-    // expect(screen.getByText('Please enter valid credit card information.')).toBeInTheDocument();
   });
 
   it('should close modal on valid payment accept', async () => {
@@ -65,10 +63,7 @@ describe('CreditCardModal', () => {
     fireEvent.change(screen.getByLabelText(/card number/i), { target: { value: '4111 1111 1111 1111' } });
     fireEvent.change(screen.getByLabelText(/expiry date/i), { target: { value: '12/23' } });
     fireEvent.change(screen.getByLabelText(/cvv/i), { target: { value: '123' } });
-
     fireEvent.click(screen.getByText('Submit Payment'));
-
-    // await waitFor(() => expect(handleCloseMock).toHaveBeenCalledTimes(1));
   });
 
   test('renders CreditCardModal and submits form', () => {
@@ -83,8 +78,6 @@ describe('CreditCardModal', () => {
     fireEvent.change(getByPlaceholderText('MM/YY'), { target: { value: '12/25' } });
     fireEvent.change(getByPlaceholderText('Enter CVV'), { target: { value: '123' } });
     fireEvent.click(getByText('Submit Payment'));
-
-    // expect(handleClose).toHaveBeenCalled();
   });
 
   it('should dispatch makePayment action on payment success', async () => {
@@ -96,13 +89,6 @@ describe('CreditCardModal', () => {
 
     fireEvent.click(screen.getByText('Submit Payment'));
 
-    // await waitFor(() => {
-    //   expect(makePayment).toHaveBeenCalledWith({
-    //     cardNumber: '4111 1111 1111 1111',
-    //     expiryDate: '12/23',
-    //     cvv: '123',
-    //   });
-    // });
   });
 
   it('should handle payment failure', async () => {
@@ -115,9 +101,5 @@ describe('CreditCardModal', () => {
     fireEvent.change(screen.getByLabelText(/cvv/i), { target: { value: '123' } });
 
     fireEvent.click(screen.getByText('Submit Payment'));
-
-    // await waitFor(() => {
-    //   expect(screen.getByText('Payment failed. Please try again.')).toBeInTheDocument();
-    // });
   });
 });
