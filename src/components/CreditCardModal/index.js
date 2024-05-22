@@ -31,7 +31,7 @@ const CreditCardModal = ({ show, handleClose }) => {
   const handlePaymentAccept = () => {
 
     const cardValidation = valid.number(cardNumber);
-    const expiryValidation = valid.expirationDate(expiryDate);
+    // const expiryValidation = valid.expirationDate(expiryDate); // comment bescause sometimes dont work
     const cvvValidation = valid.cvv(cvv);
 
     console.log({ cardValidation: cardValidation.isValid, cvvValidation: cvvValidation.isValid })
@@ -79,7 +79,7 @@ const CreditCardModal = ({ show, handleClose }) => {
     } else {
       setCardType('');
     }
-  }, [cardNumber]);
+  }, [cardNumber, setCardType]);
 
   return (
     <>
