@@ -44,7 +44,7 @@ const CreditCardModal = ({ show, handleClose }) => {
       setTitleToast('Invalid card infomation')
       setMessageToast('Please enter valid credit card information.')
       setTimeout(() => setShowToast(false), 3000)
-      console.error('Please enter valid credit card information.');
+      console.log('Please enter valid credit card information.');
     }
 
   };

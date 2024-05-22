@@ -5,6 +5,7 @@ import {
   ItemsWrapper,
   ProductWrapper,
   OrderInfo,
+  Title,
   ProductTitle,
   ProductImage,
   ProductInfo,
@@ -16,7 +17,7 @@ const ProductList = () => {
 
   return (
     <OrderInfo>
-      <h2>Products in the cart</h2>
+      <Title>Products in the cart</Title>
       <ItemsWrapper>
         {products.map(product => (
           <ProductWrapper key={product.id}>

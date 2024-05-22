@@ -3,6 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import './App.css';
 
+import {
+  AppWrapper,
+  AppHeader,
+  AppButton
+} from './App.Style';
 import useLocalStorage from './hooks/useLocalStorage';
 import { resetPaymentState } from './redux/reducers/paymentReducer';
 
@@ -34,22 +39,25 @@ function App() {
     }
   }, [paymentStatus]);
 
-  paymentStatus = paymentStatus !=='' ? paymentStatus : paymentData
+  paymentStatus = paymentStatus !== '' ? paymentStatus : paymentData
   if (paymentStatus === 'succeeded' || paymentStatus === 'failed') {
     return <PaymentStatus handleRetry={handleRetry} paymentStatus={paymentStatus} />;
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <AppWrapper>
+    <AppHeader>
         <ProductList />
         <Button variant="primary" onClick={handleShow}>
           Pay with credit card
         </Button>
-      </header>
+        </AppHeader>
       <CreditCardModal show={showModal} handleClose={handleClose} />
-    </div>
+    </AppWrapper>
   );
 }
+
+// <div className="App">
+// <header className="App-header">
 
 export default App;

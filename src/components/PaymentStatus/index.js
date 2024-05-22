@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { PaymentStatusWrapper, Message, RetryButton } from './PaymentStatus.Style';
 
 const PaymentStatus = ({ handleRetry, paymentStatus }) => {
