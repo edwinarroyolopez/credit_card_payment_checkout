@@ -5,8 +5,7 @@ import './App.css';
 
 import {
   AppWrapper,
-  AppHeader,
-  AppButton
+  AppHeader
 } from './App.Style';
 import useLocalStorage from './hooks/useLocalStorage';
 import { resetPaymentState } from './redux/reducers/paymentReducer';
@@ -34,10 +33,10 @@ function App() {
 
   useEffect(() => {
     if (paymentStatus === 'succeeded' || paymentStatus === 'failed') {
-      setPaymentData(paymentStatus)
+      setPaymentData(paymentStatus)// th
       setShowModal(false);
     }
-  }, [paymentStatus]);
+  }, [paymentStatus, setPaymentData]);
 
   paymentStatus = paymentStatus !== '' ? paymentStatus : paymentData
   if (paymentStatus === 'succeeded' || paymentStatus === 'failed') {
@@ -48,7 +47,7 @@ function App() {
     <AppWrapper>
     <AppHeader>
         <ProductList />
-        <Button variant="primary" onClick={handleShow}>
+        <Button variant="primary" size="lg" onClick={handleShow}>
           Pay with credit card
         </Button>
         </AppHeader>
@@ -56,8 +55,5 @@ function App() {
     </AppWrapper>
   );
 }
-
-// <div className="App">
-// <header className="App-header">
 
 export default App;

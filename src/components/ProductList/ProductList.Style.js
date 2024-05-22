@@ -37,7 +37,7 @@ export const ProductWrapper = styled.div`
   }
 `;
 
-export const ProductImage = styled.img`
+export const ProductImageWrapper = styled.div`
   width: 60px;
   height: 60px;
   object-fit: cover;
