@@ -7,7 +7,6 @@
 # Content
 1. [Install](#install)
 2. [Start](#start)
-3. [Migrations](#migrations)
 3. [Test](#test)
 4. [License](#license)
 
