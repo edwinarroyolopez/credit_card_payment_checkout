@@ -29,12 +29,8 @@ const PaymentForm = ({
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    onPaymentAccept()
-  };
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form >
       <Form.Group controlId="formCardNumber">
         <Form.Label>Card Number</Form.Label>
         <div style={{ position: 'relative' }}>
@@ -81,7 +77,7 @@ const PaymentForm = ({
         />
       </Form.Group>
       <br />
-      <Button variant="primary" type="submit">
+      <Button variant="primary" onClick={onPaymentAccept}>
         Submit Payment
       </Button>
     </Form>

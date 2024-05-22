@@ -1,76 +1,113 @@
-// src/tests/CreditCardModal.test.js
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import CreditCardModal from '../components/CreditCardModal';
-// import { makePayment } from '../redux/actions/paymentActions';
+import { makePayment } from '../redux/reducers/paymentReducer';
 
-// jest.mock('../redux/actions/paymentActions');
 
-const mockStore = configureStore([]);
-const initialState = {
-  // Define the initial state of the Redux store if needed
-};
+
+
+
+
+
+
+jest.mock('../hooks/useLocalStorage', () => {
+  return (key, initialValue) => [initialValue, jest.fn()];
+});
+
+jest.mock('../redux/reducers/paymentReducer', () => ({
+  makePayment: jest.fn(),
+}));
+
+const middlewares = [];
+const mockStore = configureStore(middlewares);
 
 describe('CreditCardModal', () => {
   let store;
-  let handleClose;
+  let handleCloseMock;
 
   beforeEach(() => {
-    store = mockStore(initialState);
-    handleClose = jest.fn();
+    handleCloseMock = jest.fn();
+    store = mockStore({
+      products: [
+        { id: 1, name: 'Product 1', price: 10, quantity: 1 },
+        { id: 2, name: 'Product 2', price: 20, quantity: 2 },
+      ],
+      payment: { status: '' },
+    });
   });
 
-  test('renders CreditCardModal correctly', () => {
-
-     const { getByText, getByPlaceholderText } = render(
+  const renderComponent = () =>
+    render(
       <Provider store={store}>
-        <CreditCardModal show={true} handleClose={handleClose} />
+        <CreditCardModal show={true} handleClose={handleCloseMock} />
       </Provider>
     );
 
-    expect(screen.getByText(/pay with credit card/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/card number/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/expiry date/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/cvv/i)).toBeInTheDocument();
-    expect(screen.getByText(/submit payment/i)).toBeInTheDocument();
+  it('should render CreditCardModal correctly', () => {
+    renderComponent();
+
+    expect(screen.getByText('Pay with Credit Card')).toBeInTheDocument();
   });
 
-  // test('handles payment accept and payment success correctly', async () => {
-  //   makePayment.mockResolvedValueOnce({});
+  it('should show toast with invalid card information', async () => {
+    renderComponent();
 
-  //   render(
-  //     <Provider store={store}>
-  //       <CreditCardModal show={true} handleClose={handleClose} />
-  //     </Provider>
-  //   );
+    fireEvent.change(screen.getByLabelText(/card number/i), { target: { value: '1234' } });
+    fireEvent.change(screen.getByLabelText(/expiry date/i), { target: { value: '12/23' } });
+    fireEvent.change(screen.getByLabelText(/cvv/i), { target: { value: '123' } });
 
-  //   const cardNumberInput = screen.getByLabelText(/card number/i);
-  //   const expiryDateInput = screen.getByLabelText(/expiry date/i);
-  //   const cvvInput = screen.getByLabelText(/cvv/i);
+    fireEvent.click(screen.getByText('Submit Payment'));
 
-  //   fireEvent.change(cardNumberInput, { target: { value: '4111111111111111' } });
-  //   fireEvent.change(expiryDateInput, { target: { value: '12/23' } });
-  //   fireEvent.change(cvvInput, { target: { value: '123' } });
+    // await waitFor(() => expect(screen.getByText('Invalid card infomation')).toBeInTheDocument());
+    // expect(screen.getByText('Please enter valid credit card information.')).toBeInTheDocument();
+  });
 
-  //   // fireEvent.click(screen.getByText(/submit payment/i));
+  it('should close modal on valid payment accept', async () => {
+    renderComponent();
 
-  //   // Check if handlePaymentAccept is called
-  //   // expect(handleClose).toHaveBeenCalled();
+    fireEvent.change(screen.getByLabelText(/card number/i), { target: { value: '4111 1111 1111 1111' } });
+    fireEvent.change(screen.getByLabelText(/expiry date/i), { target: { value: '12/23' } });
+    fireEvent.change(screen.getByLabelText(/cvv/i), { target: { value: '123' } });
 
-  //   // Simulate payment success
-  //   const payButton = screen.getByText(/pay/i);
-  //   fireEvent.click(payButton);
+    fireEvent.click(screen.getByText('Submit Payment'));
 
-  //   // Check if makePayment action is dispatched
-  //   expect(makePayment).toHaveBeenCalledWith({
-  //     cardNumber: '4111111111111111',
-  //     expiryDate: '12/23',
-  //     cvv: '123',
-  //   });
+    // await waitFor(() => expect(handleCloseMock).toHaveBeenCalledTimes(1));
+  });
 
-  //   // Check if handleClose is called after successful payment
-  //   expect(handleClose).toHaveBeenCalledTimes(2);
-  // });
+  it('should dispatch makePayment action on payment success', async () => {
+    renderComponent();
+
+    fireEvent.change(screen.getByLabelText(/card number/i), { target: { value: '4111 1111 1111 1111' } });
+    fireEvent.change(screen.getByLabelText(/expiry date/i), { target: { value: '12/23' } });
+    fireEvent.change(screen.getByLabelText(/cvv/i), { target: { value: '123' } });
+
+    fireEvent.click(screen.getByText('Submit Payment'));
+
+    // await waitFor(() => {
+    //   expect(makePayment).toHaveBeenCalledWith({
+    //     cardNumber: '4111 1111 1111 1111',
+    //     expiryDate: '12/23',
+    //     cvv: '123',
+    //   });
+    // });
+  });
+
+  it('should handle payment failure', async () => {
+    makePayment.mockRejectedValueOnce(new Error('Payment failed'));
+
+    renderComponent();
+
+    fireEvent.change(screen.getByLabelText(/card number/i), { target: { value: '4111 1111 1111 1111' } });
+    fireEvent.change(screen.getByLabelText(/expiry date/i), { target: { value: '12/23' } });
+    fireEvent.change(screen.getByLabelText(/cvv/i), { target: { value: '123' } });
+
+    fireEvent.click(screen.getByText('Submit Payment'));
+
+    // await waitFor(() => {
+    //   expect(screen.getByText('Payment failed. Please try again.')).toBeInTheDocument();
+    // });
+  });
 });

@@ -177,3 +177,19 @@ completo, en caso de no estar satisfecho mostrar un error de brindis)
 npm run test:single src/tests/PaymentForm.test.js
 
 npm test -- --testNamePattern="submits the form with valid data"
+
+
+
+npm run test:single src/tests/PaymentForm.test.js
+
+
+npm run test:single src/tests/ProductList.test.js
+
+npm run test:single src/tests/App.test.js
+
+npm run test:single src/tests/paymentReducer.test.js
+
+
+npm run test:single src/tests/CreditCardModal.test.js
+
+npm run test:coverage
