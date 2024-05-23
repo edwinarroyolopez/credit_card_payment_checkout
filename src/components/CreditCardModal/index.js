@@ -14,10 +14,7 @@ const CreditCardModal = ({ show, handleClose }) => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.products);
 
-  const [cardNumber, setCardNumber] = useLocalStorage('cardNumber', '');
-  const [expiryDate, setExpiryDate] = useLocalStorage('expiryDate', '');
-  const [cvv, setCvv] = useLocalStorage('cvv', '');
-  const [cardType, setCardType] = useLocalStorage('cardType', '');
+  const [cardInfo, setCardInfo] = useLocalStorage('cardInfo', { number: '', expiration: '', cvv: '', cardType: '' });
 
   const [showPaymentSummary, setShowPaymentSummary] = useState(false);
 
@@ -29,57 +26,55 @@ const CreditCardModal = ({ show, handleClose }) => {
   const totalItems = products.reduce((total, product) => total + product.quantity, 0);
 
   const handlePaymentAccept = () => {
+    const cardValidation = valid.number(cardInfo.number);
+    const cvvValidation = valid.cvv(cardInfo.cvv);
 
-    const cardValidation = valid.number(cardNumber);
-    // const expiryValidation = valid.expirationDate(expiryDate); // comment bescause sometimes dont work
-    const cvvValidation = valid.cvv(cvv);
-
-    console.log({ cardValidation: cardValidation.isValid, cvvValidation: cvvValidation.isValid })
+    console.log({ cardValidation: cardValidation.isValid, cvvValidation: cvvValidation.isValid });
     if (cardValidation.isValid && cvvValidation.isValid) {
       console.log('Payment accepted');
       setShowPaymentSummary(true);
       handleClose();
     } else {
-      setShowToast(true)
-      setTitleToast('Invalid card infomation')
-      setMessageToast('Please enter valid credit card information.')
-      setTimeout(() => setShowToast(false), 3000)
+      setShowToast(true);
+      setTitleToast('Invalid card information');
+      setMessageToast('Please enter valid credit card information.');
+      setTimeout(() => setShowToast(false), 3000);
       console.log('Please enter valid credit card information.');
     }
-
   };
 
   const toggleShowToast = () => {
-    setShowToast(!showToast)
+    setShowToast(!showToast);
   }
 
   const handlePaymentSuccess = async () => {
     try {
-      const response = await dispatch(makePayment({ cardNumber, expiryDate, cvv }));
+      const response = await dispatch(makePayment({
+        cardNumber: cardInfo.number,
+        expiryDate: cardInfo.expiration,
+        cvv: cardInfo.cvv
+      }));
       console.log({ response });
       setShowPaymentSummary(false);
 
       // clear the payment data
-      localStorage.removeItem('cardNumber');
-      localStorage.removeItem('expiryDate');
-      localStorage.removeItem('cvv');
-      localStorage.removeItem('cardType');
+      localStorage.removeItem('cardInfo');
 
       handleClose();
-
     } catch (error) {
       console.error('Payment failed. Please try again.', error);
     }
   };
 
   useEffect(() => {
-    const cardValidation = valid.number(cardNumber);
+    const cardValidation = valid.number(cardInfo.number);
+    let cardType = ''
     if (cardValidation.card) {
-      setCardType(cardValidation.card.type);
-    } else {
-      setCardType('');
+      cardType = cardValidation.card.type
     }
-  }, [cardNumber, setCardType]);
+    setCardInfo(prevInfo => ({ ...prevInfo, cardType: cardType }));
+
+  }, [cardInfo.number]);
 
   return (
     <>
@@ -89,18 +84,11 @@ const CreditCardModal = ({ show, handleClose }) => {
         </Modal.Header>
         <Modal.Body>
           <PaymentForm
-            cardNumber={cardNumber}
-            setCardNumber={setCardNumber}
-            expiryDate={expiryDate}
-            setExpiryDate={setExpiryDate}
-            cvv={cvv}
-            setCvv={setCvv}
-            cardType={cardType}
-            setCardType={setCardType}
+            setCardInfo={setCardInfo}
+            cardInfo={cardInfo}
             onPaymentAccept={handlePaymentAccept}
           />
         </Modal.Body>
-
       </Modal>
       <BackdropComponent
         show={showPaymentSummary}

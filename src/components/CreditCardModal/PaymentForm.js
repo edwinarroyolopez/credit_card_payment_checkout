@@ -1,33 +1,15 @@
 import React from 'react';
-import valid from 'card-validator';
 import { Form, Button } from 'react-bootstrap';
 
 import visaLogo from '../../assets/visa.png';
 import masterCardLogo from '../../assets/mastercard.png';
 
 const PaymentForm = ({
-  cardNumber,
-  setCardNumber,
-  expiryDate,
-  setExpiryDate,
-  cvv,
-  setCvv,
   cardType,
-  setCardType,
+  setCardInfo,
+  cardInfo,
   onPaymentAccept
 }) => {
-
-  const handleCardNumberChange = (e) => {
-    const number = e.target.value;
-    setCardNumber(number);
-
-    const cardValidation = valid.number(number);
-    if (cardValidation.card) {
-      setCardType(cardValidation.card.type);
-    } else {
-      setCardType('');
-    }
-  };
 
   return (
     <Form >
@@ -37,11 +19,13 @@ const PaymentForm = ({
           <Form.Control
             type="text"
             placeholder="Enter card number"
-            value={cardNumber}
-            onChange={handleCardNumberChange}
+            value={cardInfo.number}
+            onChange={({ target: { value } }) =>
+              setCardInfo({ ...cardInfo, number: value })
+            }
             required
           />
-          {cardType && (
+          {cardInfo.cardType && (
             <img
               src={cardType === 'visa' ? visaLogo : masterCardLogo}
               alt={`${cardType} logo`}
@@ -61,8 +45,10 @@ const PaymentForm = ({
         <Form.Control
           type="text"
           placeholder="MM/YY"
-          value={expiryDate}
-          onChange={(e) => setExpiryDate(e.target.value)}
+          value={cardInfo.expiration}
+          onChange={({ target: { value } }) =>
+            setCardInfo({ ...cardInfo, expiration: value })
+          }
           required
         />
       </Form.Group>
@@ -71,8 +57,10 @@ const PaymentForm = ({
         <Form.Control
           type="text"
           placeholder="Enter CVV"
-          value={cvv}
-          onChange={(e) => setCvv(e.target.value)}
+          value={cardInfo.cvv}
+          onChange={({ target: { value } }) =>
+            setCardInfo({ ...cardInfo, cvv: value })
+          }
           required
         />
       </Form.Group>
