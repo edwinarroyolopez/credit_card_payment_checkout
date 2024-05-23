@@ -6,8 +6,8 @@ import masterCardLogo from '../../assets/mastercard.png';
 
 const PaymentForm = ({
   cardType,
-  setCardInfo,
   cardInfo,
+  handleChange,
   onPaymentAccept
 }) => {
 
@@ -18,10 +18,11 @@ const PaymentForm = ({
         <div style={{ position: 'relative' }}>
           <Form.Control
             type="text"
+            data-testid="inputCardNumber"
             placeholder="Enter card number"
             value={cardInfo.number}
             onChange={({ target: { value } }) =>
-              setCardInfo({ ...cardInfo, number: value })
+              handleChange('number',value)
             }
             required
           />
@@ -44,10 +45,11 @@ const PaymentForm = ({
         <Form.Label>Expiry Date</Form.Label>
         <Form.Control
           type="text"
+          data-testid="inputExpiryDate"
           placeholder="MM/YY"
           value={cardInfo.expiration}
           onChange={({ target: { value } }) =>
-            setCardInfo({ ...cardInfo, expiration: value })
+            handleChange('expiration',value)
           }
           required
         />
@@ -56,10 +58,11 @@ const PaymentForm = ({
         <Form.Label>CVV</Form.Label>
         <Form.Control
           type="text"
+          data-testid="inputCvv"
           placeholder="Enter CVV"
           value={cardInfo.cvv}
           onChange={({ target: { value } }) =>
-            setCardInfo({ ...cardInfo, cvv: value })
+            handleChange('cvv',value)
           }
           required
         />

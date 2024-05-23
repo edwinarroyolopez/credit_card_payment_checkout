@@ -29,7 +29,6 @@ const CreditCardModal = ({ show, handleClose }) => {
     const cardValidation = valid.number(cardInfo.number);
     const cvvValidation = valid.cvv(cardInfo.cvv);
 
-    console.log({ cardValidation: cardValidation.isValid, cvvValidation: cvvValidation.isValid });
     if (cardValidation.isValid && cvvValidation.isValid) {
       console.log('Payment accepted');
       setShowPaymentSummary(true);
@@ -45,6 +44,10 @@ const CreditCardModal = ({ show, handleClose }) => {
 
   const toggleShowToast = () => {
     setShowToast(!showToast);
+  }
+
+  const handleChange = (key, value) => {
+    setCardInfo({ ...cardInfo, [key]: value });
   }
 
   const handlePaymentSuccess = async () => {
@@ -84,8 +87,8 @@ const CreditCardModal = ({ show, handleClose }) => {
         </Modal.Header>
         <Modal.Body>
           <PaymentForm
-            setCardInfo={setCardInfo}
             cardInfo={cardInfo}
+            handleChange={handleChange}
             onPaymentAccept={handlePaymentAccept}
           />
         </Modal.Body>

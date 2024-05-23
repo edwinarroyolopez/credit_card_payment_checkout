@@ -4,31 +4,24 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import PaymentForm from '../components/CreditCardModal/PaymentForm';
 
 describe('PaymentForm', () => {
-  let cardNumber, setCardNumber, expiryDate, setExpiryDate, cvv, setCvv, cardType, setCardType, onPaymentAccept;
+  let cardInfo, handleChange, onPaymentAccept;
 
   beforeEach(() => {
-    cardNumber = '';
-    setCardNumber = jest.fn();
-    expiryDate = '';
-    setExpiryDate = jest.fn();
-    cvv = '';
-    setCvv = jest.fn();
-    cardType = '';
-    setCardType = jest.fn();
+    cardInfo = {
+      number: '',
+      expiration: '',
+      cvv: '',
+      cardType: ''
+    };
+    handleChange = jest.fn();
     onPaymentAccept = jest.fn();
   });
 
   test('renders PaymentForm correctly', () => {
     render(
       <PaymentForm
-        cardNumber={cardNumber}
-        setCardNumber={setCardNumber}
-        expiryDate={expiryDate}
-        setExpiryDate={setExpiryDate}
-        cvv={cvv}
-        setCvv={setCvv}
-        cardType={cardType}
-        setCardType={setCardType}
+        cardInfo={cardInfo}
+        handleChange={handleChange}
         onPaymentAccept={onPaymentAccept}
       />
     );
@@ -39,17 +32,11 @@ describe('PaymentForm', () => {
     expect(screen.getByText(/submit payment/i)).toBeInTheDocument();
   });
 
-  test('updates card type when valid card number is entered', () => {
+  test('updates card number input correctly', () => {
     render(
       <PaymentForm
-        cardNumber={cardNumber}
-        setCardNumber={setCardNumber}
-        expiryDate={expiryDate}
-        setExpiryDate={setExpiryDate}
-        cvv={cvv}
-        setCvv={setCvv}
-        cardType={cardType}
-        setCardType={setCardType}
+        cardInfo={cardInfo}
+        handleChange={handleChange}
         onPaymentAccept={onPaymentAccept}
       />
     );
@@ -57,7 +44,51 @@ describe('PaymentForm', () => {
     const cardNumberInput = screen.getByLabelText(/card number/i);
     fireEvent.change(cardNumberInput, { target: { value: '4111111111111111' } });
 
-    expect(setCardNumber).toHaveBeenCalledWith('4111111111111111');
-    expect(setCardType).toHaveBeenCalledWith('visa');
+    expect(handleChange).toHaveBeenCalledWith('number', '4111111111111111');
+  });
+
+  test('updates expiry date input correctly', () => {
+    render(
+      <PaymentForm
+        cardInfo={cardInfo}
+        handleChange={handleChange}
+        onPaymentAccept={onPaymentAccept}
+      />
+    );
+
+    const expiryDateInput = screen.getByLabelText(/expiry date/i);
+    fireEvent.change(expiryDateInput, { target: { value: '12/24' } });
+
+    expect(handleChange).toHaveBeenCalledWith('expiration', '12/24');
+  });
+
+  test('updates cvv input correctly', () => {
+    render(
+      <PaymentForm
+        cardInfo={cardInfo}
+        handleChange={handleChange}
+        onPaymentAccept={onPaymentAccept}
+      />
+    );
+
+    const cvvInput = screen.getByLabelText(/cvv/i);
+    fireEvent.change(cvvInput, { target: { value: '123' } });
+
+    expect(handleChange).toHaveBeenCalledWith('cvv', '123');
+  });
+
+  test('calls onPaymentAccept when submit button is clicked', () => {
+    render(
+      <PaymentForm
+        cardInfo={cardInfo}
+        handleChange={handleChange}
+        onPaymentAccept={onPaymentAccept}
+      />
+    );
+
+    const submitButton = screen.getByText(/submit payment/i);
+    fireEvent.click(submitButton);
+
+    expect(onPaymentAccept).toHaveBeenCalled();
   });
 });
